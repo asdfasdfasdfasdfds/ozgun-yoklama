@@ -37,25 +37,29 @@ const SignIn = () => {
   return (
     <div className="flex flex-col w-full mt-20">
       <img
-        className="w-64 ml-auto mr-auto"
+        className="w-72 ml-auto mr-auto"
         src="https://www.linkpicture.com/q/logo_18.jpg"
       />
       <form className="flex flex-col items-center" onSubmit={handleLogin}>
         <input
           value={email}
+          type="text"
           onChange={(e) => setEmail(e.currentTarget.value)}
-          className="rounded-none  p-4 w-96 shadow-2xl border border-blue-200 appearance-none bg-gray-200 rounded-t-lg t-20"
+          className="rounded-none  p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 appearance-none bg-gray-200 rounded-t-lg t-20"
           placeholder="E-Posta"
+          required
         />
         <input
           value={password}
+          type="password"
           onChange={(e) => setPassword(e.currentTarget.value)}
-          className="rounded-none p-4 w-96 shadow-2xl border border-blue-200 appearance-none bg-gray-200 rounded-b-lg"
+          className="rounded-none p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 appearance-none bg-gray-200 rounded-b-lg"
           placeholder="Şifre"
+          required
         />
         <button
           type="submit"
-          className="mx-auto mt-5 rounded-none rounded-t-lg p-4 w-96 shadow-2xl border border-blue-200 bg-gray-200 hover:bg-gray-400 "
+          className="mx-auto mt-5 rounded-none rounded-t-lg p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 bg-gray-200 hover:bg-gray-400 "
         >
           Giriş Yap
         </button>
@@ -67,7 +71,7 @@ const SignIn = () => {
       )}
       <Link
         to="/register"
-        className="text-center mx-auto rounded-none rounded-b-lg p-4 w-96 shadow-2xl border border-blue-200 bg-gray-200 hover:bg-gray-400 "
+        className="text-center mx-auto rounded-none rounded-b-lg p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 bg-gray-200 hover:bg-gray-400 "
       >
         Kayıt Ol
       </Link>

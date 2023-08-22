@@ -11,6 +11,12 @@ const OgrenciListesi = () => {
   const handleYoklamaKoduGirisi = async () => {
     setErrorMesaji("");
 
+    if (!yoklamaKodu) {
+      setErrorMesaji("Yoklama kodunu boş bırakmayınız.");
+      setKatilanlarListesi([]);
+      return;
+    }
+
     // Firestore referansı oluşturun
     const yoklamalarRef = collection(firestore, "yoklama");
     const q = query(yoklamalarRef, where("kod", "==", yoklamaKodu));
@@ -40,20 +46,25 @@ const OgrenciListesi = () => {
   };
 
   return (
-    <div className="flex flex-col w-full mt-20">
-      <h1 className="text-center text-2xl font-bold mb-5">Öğrenci Listesi</h1>
+    <div className="flex flex-col w-full mt-5">
+      <img
+        className="w-64 ml-auto mr-auto"
+        src="https://www.linkpicture.com/q/logo_18.jpg"
+        alt="Logo"
+      />
       <div className="mx-auto w-72 lg:w-96">
         <p className="text-center mb-4">
           Öğrenci Listesini Görmek İstediğiniz Yoklamanın Kodunu Giriniz
         </p>
         <input
-          className="p-4 w-full mb-4 shadow-2xl border border-blue-200 appearance-none bg-gray-200 rounded-lg"
+          className="p-4 w-full shadow-2xl border border-blue-200 appearance-none bg-gray-200 rounded-none rounded-t-lg"
           placeholder="Yoklama Kodu"
           value={yoklamaKodu}
           onChange={(e) => setYoklamaKodu(e.target.value)}
+          required
         />
         <button
-          className="w-full p-4 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+          className="rounded-none rounded-b-lg mx-auto p-4 w-72 lg:w-96 shadow-2xl border border-blue-200 bg-gray-200 hover:bg-gray-400 "
           onClick={handleYoklamaKoduGirisi}
         >
           Göster

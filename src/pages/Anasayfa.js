@@ -17,6 +17,7 @@ const Anasayfa = () => {
   const [user, isLoading] = useAuthState(auth);
   const [yoklamaKodu, setYoklamaKodu] = useState("");
   const [successVisible, setSuccessVisible] = useState(false);
+  const [sure, setSure] = useState(false);
   const [hata, setHata] = useState(false);
 
   const handleSignOut = useCallback(() => {
@@ -38,14 +39,28 @@ const Anasayfa = () => {
 
       const doc = querySnapshot.docs[0];
 
+      // Yoklama oluşturulma tarihini al
+      const olusturulmaTarihi = doc.data().olusturulmaTarihi.toDate();
+
+      // Anlık tarih
+      const currentTime = new Date();
+
+      // Tarih farkını hesapla (milisaniye cinsinden)
+      const timeDifference = currentTime - olusturulmaTarihi;
+
+      // 1 saat = 3600000 milisaniye
+      if (timeDifference > 36000) {
+        sureMesaj();
+        return;
+      }
+
       await updateDoc(doc.ref, {
         katilanlar: arrayUnion(user.displayName),
       });
 
-      console.log("Yoklamaya katılım başarılı!");
       showSuccessMessage();
     } catch (error) {
-      console.error("Yoklamaya katılırken hata oluştu:", error);
+      alert("Hata oluştu.");
     }
   };
 
@@ -61,6 +76,13 @@ const Anasayfa = () => {
     setTimeout(() => {
       setHata(false);
     }, 2000);
+  };
+
+  const sureMesaj = () => {
+    setSure(true);
+    setTimeout(() => {
+      setSure(false);
+    }, 5000);
   };
 
   if (isLoading) {
@@ -91,13 +113,13 @@ const Anasayfa = () => {
         <input
           value={yoklamaKodu}
           onChange={(e) => setYoklamaKodu(e.currentTarget.value)}
-          className="mx-auto  p-4 w-72 lg:w-96 shadow-2xl border border-blue-200 appearance-none bg-gray-200 rounded-lg t-20"
+          className="mx-auto  p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 appearance-none bg-gray-200 rounded-lg t-20"
           placeholder="Yoklama Kodu"
         />
       </form>
       <button
         onClick={handleYoklamaKatil}
-        className="rounded-none mx-auto mt-5 rounded-t-lg p-4 w-72 lg:w-96 shadow-2xl border border-blue-200 bg-gray-200 hover:bg-gray-400 "
+        className="rounded-none mx-auto mt-5 rounded-t-lg p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 bg-gray-200 hover:bg-gray-400 "
       >
         Yoklamaya Katıl
       </button>
@@ -111,15 +133,20 @@ const Anasayfa = () => {
           Yoklama kodu bulunamadı.
         </div>
       )}
+      {sure && (
+        <div className="absolute top-0 right-0 m-4 bg-red-500 text-white p-4 rounded shadow">
+          Zaten bu ders bitmiş.
+        </div>
+      )}
       <Link
         to="/yoklama-olustur"
-        className="rounded-none mx-auto text-center  p-4 w-72 lg:w-96 shadow-2xl border border-blue-200 bg-gray-200 hover:bg-gray-400 "
+        className="rounded-none mx-auto text-center  p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 bg-gray-200 hover:bg-gray-400 "
       >
         Yoklama Oluştur
       </Link>
       <button
         onClick={handleSignOut}
-        className="rounded-none mx-auto rounded-b-lg p-4 w-72 lg:w-96 shadow-2xl border border-blue-200 bg-gray-200 hover:bg-gray-400 "
+        className="rounded-none mx-auto rounded-b-lg p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 bg-gray-200 hover:bg-gray-400 "
       >
         Çıkış Yap
       </button>

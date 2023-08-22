@@ -6,6 +6,7 @@ import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
 import Anasayfa from "./pages/Anasayfa";
 import YoklamaOlustur from "./pages/YoklamaOlustur";
+import YoklamaGecmisi from "./pages/YoklamaGecmisi";
 import Liste from "./pages/OgrenciListesi";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route path="/anasayfa" element={<Anasayfa />} />
           <Route path="/yoklama-olustur" element={<YoklamaOlustur />} />
+          <Route path="/yoklama-gecmisi" element={<YoklamaGecmisi />} />
           <Route path="/ogrenci-listesi" element={<Liste />} />
         </Route>
       </Routes>

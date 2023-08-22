@@ -29,7 +29,7 @@ const SignUp = () => {
     setSuccessVisible(true);
     setTimeout(() => {
       setSuccessVisible(false);
-    }, 2000); // 2 saniye sonra başarı mesajını kapat
+    }, 2000);
   };
 
   return (
@@ -41,25 +41,31 @@ const SignUp = () => {
       <form className="flex flex-col items-center" onSubmit={handleRegister}>
         <input
           value={name}
+          type="text"
           onChange={(e) => setName(e.currentTarget.value)}
-          className="rounded-none  p-4 w-96 shadow-2xl border border-blue-200 appearance-none bg-gray-200 rounded-t-lg t-20"
+          className="rounded-none  p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 appearance-none bg-gray-200 rounded-t-lg t-20"
           placeholder="Ad Soyad"
+          required
         />
         <input
           value={email}
+          type="text"
           onChange={(e) => setEmail(e.currentTarget.value)}
-          className="rounded-none  p-4 w-96 shadow-2xl border border-blue-200 appearance-none bg-gray-200 t-20"
+          className="rounded-none  p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 appearance-none bg-gray-200 t-20"
           placeholder="E-Posta"
+          required
         />
         <input
           value={password}
+          type="password"
           onChange={(e) => setPassword(e.currentTarget.value)}
-          className="rounded-none p-4 w-96 shadow-2xl border border-blue-200 appearance-none bg-gray-200 rounded-b-lg"
+          className="rounded-none p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 appearance-none bg-gray-200 rounded-b-lg"
           placeholder="Şifre"
+          required
         />
         <button
           onSubmit={handleRegister}
-          className="mx-auto mt-5 rounded-lg p-4 w-96 shadow-2xl border border-blue-200 bg-gray-200 hover:bg-gray-400 "
+          className="mx-auto mt-5 rounded-lg p-4 w-72 lg:w-96 shadow-2xl border border-blue-100 bg-gray-200 hover:bg-gray-400 "
         >
           Kayıt Ol
         </button>
